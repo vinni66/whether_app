@@ -1,0 +1,19 @@
+.settings-page {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+}
+
+.setting-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 300px;
+  justify-content: space-between;
+}
+
+.setting-item label {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
