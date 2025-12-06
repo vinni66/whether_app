@@ -1,4 +1,4 @@
-import { Droplets, Wind, Sun, Sunset, Gauge, Eye } from 'lucide-react';
+import { Droplets, Wind, Sun, Sunset, Gauge, Eye, CloudRain } from 'lucide-react';
 import './WeatherGrid.css';
 
 function WeatherGrid({ data }) {
@@ -48,6 +48,12 @@ function WeatherGrid({ data }) {
             label: "Feels Like",
             value: `${Math.round(main.feels_like)}°`,
             desc: ""
+        },
+        {
+            icon: <CloudRain size={24} className="text-cyan-300" />,
+            label: "Rain Chance",
+            value: `${main.precip_prob}%`,
+            desc: "Daily Max"
         }
     ];
 

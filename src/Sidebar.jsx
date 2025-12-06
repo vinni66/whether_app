@@ -13,7 +13,7 @@ function Sidebar() {
         <nav className="sidebar glass-panel">
             <div className="logo-area">
                 <CloudSun size={32} className="logo-icon" />
-                <span className="logo-text">Weather</span>
+                <span className="logo-text">Skyflow</span>
             </div>
 
             <div className="nav-links">

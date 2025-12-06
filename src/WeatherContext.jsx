@@ -23,7 +23,7 @@ export function WeatherProvider({ children }) {
       const windSpeedUnit = units === 'metric' ? 'kmh' : 'mph';
 
       // 1. Fetch Forecast & Current Weather
-      const weatherPromise = fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,weather_code,wind_speed_10m,wind_direction_10m,surface_pressure&hourly=temperature_2m,weather_code,is_day&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max&temperature_unit=${tempUnit}&wind_speed_unit=${windSpeedUnit}&timezone=auto`);
+      const weatherPromise = fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,weather_code,wind_speed_10m,wind_direction_10m,surface_pressure&hourly=temperature_2m,weather_code,is_day&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max,precipitation_probability_max&temperature_unit=${tempUnit}&wind_speed_unit=${windSpeedUnit}&timezone=auto`);
 
       // 2. Fetch Air Quality
       const aqiPromise = fetch(`https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${latitude}&longitude=${longitude}&current=us_aqi`);
@@ -48,12 +48,14 @@ export function WeatherProvider({ children }) {
       };
 
       setWeatherData({
+        lastUpdated: new Date(), // Store timestamp
         name: displayName,
         main: {
           temp: data.current.temperature_2m,
           feels_like: data.current.apparent_temperature,
           humidity: data.current.relative_humidity_2m,
-          pressure: data.current.surface_pressure
+          pressure: data.current.surface_pressure,
+          precip_prob: data.daily.precipitation_probability_max[0] // Daily max precip chance
         },
         wind: {
           speed: data.current.wind_speed_10m,

@@ -47,6 +47,11 @@ function Home() {
                 <div className="welcome-text">
                     <h1>Weather Dashboard</h1>
                     <p>{new Date().toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                    {weatherData?.lastUpdated && (
+                        <p style={{ fontSize: '0.8rem', opacity: 0.7, marginTop: '0.2rem' }}>
+                            Updated: {weatherData.lastUpdated.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                        </p>
+                    )}
                 </div>
                 <div className="search-bar-container">
                     <SearchAutocomplete />
