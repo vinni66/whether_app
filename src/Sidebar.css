@@ -171,7 +171,13 @@
         flex-grow: 1;
         justify-content: flex-end;
         /* Push to right */
-        gap: 1rem;
+        gap: 0.5rem;
+        /* Reduced gap */
+    }
+
+    .nav-item.disabled {
+        display: none;
+        /* Hide disabled items on mobile to save space */
     }
 
     .nav-item {
