@@ -12,7 +12,9 @@ export function ThemeProvider({ children }) {
   };
 
   const value = useMemo(() => ({ theme, toggleTheme }), [theme]);
-  const backgroundClass = weatherData?.weather[0]?.background || 'bg-default';
+  // const backgroundClass = weatherData?.weather[0]?.background || 'bg-default';
+  // User requested to disable time/weather based color changes
+  const backgroundClass = 'bg-default';
 
   return (
     <ThemeContext.Provider value={value}>

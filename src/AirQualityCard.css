@@ -1,0 +1,77 @@
+.air-quality-card {
+    padding: 1.5rem;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.aqi-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.aqi-header h3 {
+    font-size: 1.1rem;
+    font-weight: 500;
+    opacity: 0.9;
+}
+
+.aqi-value {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.aqi-status h4 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.aqi-status p {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    line-height: 1.4;
+}
+
+.aqi-bar-container {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+.aqi-bar {
+    height: 100%;
+    background: white;
+    border-radius: 3px;
+    transition: width 1s ease-out;
+}
+
+/* Color Themes based on AQI */
+.aqi-good {
+    background: linear-gradient(135deg, rgba(86, 171, 47, 0.3), rgba(168, 224, 99, 0.3));
+}
+
+.aqi-moderate {
+    background: linear-gradient(135deg, rgba(241, 196, 15, 0.3), rgba(243, 156, 18, 0.3));
+}
+
+.aqi-sensitive {
+    background: linear-gradient(135deg, rgba(230, 126, 34, 0.3), rgba(211, 84, 0, 0.3));
+}
+
+.aqi-unhealthy {
+    background: linear-gradient(135deg, rgba(231, 76, 60, 0.3), rgba(192, 57, 43, 0.3));
+}
+
+.aqi-very-unhealthy {
+    background: linear-gradient(135deg, rgba(142, 68, 173, 0.3), rgba(155, 89, 182, 0.3));
+}
+
+.aqi-hazardous {
+    background: linear-gradient(135deg, rgba(52, 73, 94, 0.5), rgba(44, 62, 80, 0.5));
+}

@@ -1,6 +1,47 @@
-.forecast-container {
+.forecast-page {
   display: flex;
-  gap: 1rem;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
+  min-height: 100%;
+  padding: 2rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Add hover effect to the cards within the grid */
+.forecast-tilt-wrapper>div {
+  transition: all 0.3s ease;
+}
+
+.forecast-tilt-wrapper:hover>div {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.forecast-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  /* Responsive columns */
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 1200px;
+  /* Limit width for large screens */
+  margin-top: 2rem;
+}
+
+.forecast-container-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.forecast-tilt-wrapper {
+  height: 100%;
+  /* Ensure all cards stretch to same height if grid rows differ */
 }

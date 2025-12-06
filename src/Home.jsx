@@ -1,93 +1,116 @@
-import { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useContext } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Loader2 } from 'lucide-react';
+// removed unused Search, Loader2 imports
 import { WeatherContext } from './WeatherContext';
+import SearchAutocomplete from './SearchAutocomplete';
 import WeatherCard from './WeatherCard';
 import HourlyForecast from './HourlyForecast';
+import WeatherGrid from './WeatherGrid';
+import AirQualityCard from './AirQualityCard';
+import Skeleton from './Skeleton';
 import './Home.css';
 
 function Home() {
-  const { weatherData, error, loading, fetchWeatherData } = useContext(WeatherContext);
-  const [query, setQuery] = useState('');
+    const { weatherData, error, loading } = useContext(WeatherContext);
+    // Removed local query state as it's handled in SearchAutocomplete
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (query.trim()) {
-      fetchWeatherData(query);
-    }
-  };
 
-  return (
-    <motion.div
-      className="home-container"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.5 }}
-    >
-      <div className="search-section">
-        <form onSubmit={handleSearch} className="search-bar glass-panel">
-          <Search className="search-icon" size={20} />
-          <input
-            type="text"
-            placeholder="Search city..."
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          />
-          <button type="submit" disabled={loading} className="search-button">
-            {loading ? <Loader2 className="animate-spin" size={20} /> : 'Go'}
-          </button>
-        </form>
-      </div>
 
-      <AnimatePresence mode="wait">
-        {error && (
-          <motion.div
-            key="error"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="error-message"
-          >
-            {error}
-          </motion.div>
-        )}
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.1,
+                delayChildren: 0.2
+            }
+        }
+    };
 
-        {!weatherData && !loading && !error && (
-          <motion.div
-            key="empty"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="empty-state"
-          >
-            <p>Enter a city to explore the weather.</p>
-          </motion.div>
-        )}
+    const itemVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: {
+                type: "spring",
+                stiffness: 100,
+                damping: 10
+            }
+        }
+    };
 
-        {weatherData && (
-          <motion.div
-            key="weather"
-            className="weather-content-wrapper"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-          >
-            <WeatherCard data={weatherData} />
+    return (
+        <div className="dashboard-container">
+            {/* Header: Search */}
+            <header className="dashboard-header">
+                <div className="welcome-text">
+                    <h1>Weather Dashboard</h1>
+                    <p>{new Date().toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                </div>
+                <div className="search-bar-container">
+                    <SearchAutocomplete />
+                </div>
+            </header>
 
-            {/* Hourly Forecast Component */}
-            {weatherData.hourly && <HourlyForecast hourlyData={weatherData.hourly} />}
+            {/* Error Message */}
+            <AnimatePresence>
+                {error && (
+                    <motion.div
+                        className="error-message glass-panel"
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.9 }}
+                    >
+                        {error}
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
-            <div className="forecast-link-container">
-              <Link to="/forecast" className="view-forecast-btn glass-panel">
-                View 5-Day Forecast
-              </Link>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.div>
-  );
+            {/* Loading State */}
+            {loading && (
+                <div className="loading-grid">
+                    <Skeleton height="100%" width="100%" style={{ borderRadius: '24px' }} />
+                    <Skeleton height="100%" width="100%" style={{ borderRadius: '24px' }} />
+                    <Skeleton height="100%" width="100%" style={{ borderRadius: '24px' }} />
+                </div>
+            )}
+
+            {/* Empty State */}
+            {!weatherData && !loading && !error && (
+                <div className="empty-state glass-panel">
+                    <h2>Welcome!</h2>
+                    <p>Enter a city name to get started.</p>
+                </div>
+            )}
+
+            {/* Dashboard Content */}
+            {weatherData && (
+                <motion.div
+                    className="dashboard-content"
+                    variants={containerVariants}
+                    initial="hidden"
+                    animate="visible"
+                >
+                    <motion.div className="main-card-area" variants={itemVariants}>
+                        <WeatherCard data={weatherData} />
+                    </motion.div>
+
+                    <motion.div className="grid-area" variants={itemVariants}>
+                        <WeatherGrid data={weatherData} />
+                    </motion.div>
+
+                    <motion.div className="hourly-area" variants={itemVariants}>
+                        {weatherData.hourly && <HourlyForecast hourlyData={weatherData.hourly} />}
+                    </motion.div>
+
+                    <motion.div className="aqi-area" variants={itemVariants}>
+                        <AirQualityCard aqi={weatherData.aqi} />
+                    </motion.div>
+                </motion.div>
+            )}
+        </div>
+    );
 }
 
 export default Home;

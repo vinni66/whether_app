@@ -1,0 +1,52 @@
+.weather-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    width: 100%;
+    margin-top: 1.5rem;
+}
+
+.grid-item {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    align-items: flex-start;
+    gap: 0.5rem;
+    transition: transform 0.2s ease;
+}
+
+.grid-item:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.grid-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+}
+
+.grid-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.grid-label {
+    font-size: 0.85rem;
+    opacity: 0.7;
+    margin-bottom: 0.2rem;
+}
+
+.grid-value {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.grid-desc {
+    font-size: 0.75rem;
+    opacity: 0.6;
+    margin-top: 0.2rem;
+}

@@ -1,0 +1,107 @@
+/* Dashboard Container */
+.dashboard-container {
+    width: 100%;
+    /* max-width removed for full width */
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Header */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.welcome-text h1 {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.welcome-text p {
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+/* Specific Search Bar Override */
+.search-bar {
+    width: 300px;
+}
+
+/* Dashboard Grid */
+.dashboard-content {
+    display: grid;
+    grid-template-columns: 1.5fr 2fr;
+    /* Balanced width */
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+        "main grid"
+        "main aqi"
+        "hourly hourly";
+    gap: 1.5rem;
+    align-items: start;
+}
+
+.main-card-area {
+    grid-area: main;
+    height: 100%;
+    display: flex;
+}
+
+.main-card-area>* {
+    flex: 1;
+    /* Ensure card stretches */
+}
+
+.grid-area {
+    grid-area: grid;
+}
+
+.aqi-area {
+    grid-area: aqi;
+}
+
+.hourly-area {
+    grid-area: hourly;
+}
+
+/* Loading Grid */
+.loading-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 2fr;
+    grid-template-rows: 400px 300px;
+    gap: 1.5rem;
+    height: 700px;
+}
+
+/* Empty State */
+.empty-state {
+    padding: 3rem;
+    text-align: center;
+    border-radius: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .dashboard-content {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "main"
+            "grid"
+            "aqi"
+            "hourly";
+    }
+
+    .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .search-bar {
+        width: 100%;
+    }
+}
